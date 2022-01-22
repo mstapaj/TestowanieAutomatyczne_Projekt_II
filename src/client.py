@@ -1,5 +1,15 @@
 class Client:
     def __init__(self, id, firstname, lastname, email):
+        if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
+            raise ValueError('Id musi być dodatnią liczbą całkowitą')
+        if not isinstance(firstname, str):
+            raise ValueError('Imię musi być typu string')
+        if not isinstance(lastname, str):
+            raise ValueError('Nazwisko musi być typu string')
+        if not isinstance(email, str):
+            raise ValueError('Email musi być typu string')
+        if '@' not in list(email):
+            raise ValueError('Email musi zawierać @')
         self.id = id
         self.firstname = firstname
         self.lastname = lastname
