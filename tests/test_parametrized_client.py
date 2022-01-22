@@ -20,63 +20,63 @@ from parameterized import *
 ])
 class TestParametrizedItem(unittest.TestCase):
 
-    def test_item_init_wrong_id(self):
+    def test_client_init_wrong_id(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, 'Jan', 'Kowalski',
                                                                 'example@example.com')
 
-    def test_item_init_wrong_firstname(self):
+    def test_client_init_wrong_firstname(self):
         assert_that(Client).raises(ValueError).when_called_with(1, self.wrongFirstname, 'Kowalski',
                                                                 'example@example.com')
 
-    def test_item_init_wrong_lastname(self):
+    def test_client_init_wrong_lastname(self):
         assert_that(Client).raises(ValueError).when_called_with(1, 'Jan', self.wrongLastname,
                                                                 'example@example.com')
 
-    def test_item_init_wrong_email(self):
+    def test_client_init_wrong_email(self):
         assert_that(Client).raises(ValueError).when_called_with(1, 'Jan', 'Kowalski',
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_firstname(self):
+    def test_client_init_wrong_id_firstname(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, self.wrongFirstname, 'Kowalski',
                                                                 'example@example.com')
 
-    def test_item_init_wrong_firstname_lastname(self):
+    def test_client_init_wrong_firstname_lastname(self):
         assert_that(Client).raises(ValueError).when_called_with(1, self.wrongFirstname, self.wrongLastname,
                                                                 'example@example.com')
 
-    def test_item_init_wrong_lastname_email(self):
+    def test_client_init_wrong_lastname_email(self):
         assert_that(Client).raises(ValueError).when_called_with(1, 'Jan', self.wrongLastname,
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_email(self):
+    def test_client_init_wrong_id_email(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, 'Jan', 'Kowalski',
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_lastname(self):
+    def test_client_init_wrong_id_lastname(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, 'Jan', self.wrongLastname,
                                                                 'example@example.com')
 
-    def test_item_init_wrong_firstname_email(self):
+    def test_client_init_wrong_firstname_email(self):
         assert_that(Client).raises(ValueError).when_called_with(1, self.wrongFirstname, 'Kowalski',
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_firstname_lastname(self):
+    def test_client_init_wrong_id_firstname_lastname(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, self.wrongFirstname, self.wrongLastname,
                                                                 'example@example.com')
 
-    def test_item_init_wrong_firstname_lastname_email(self):
+    def test_client_init_wrong_firstname_lastname_email(self):
         assert_that(Client).raises(ValueError).when_called_with(1,self.wrongFirstname, self.wrongLastname,
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_lastname_email(self):
+    def test_client_init_wrong_id_lastname_email(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, 'Jan', self.wrongLastname,
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_firstname_email(self):
+    def test_client_init_wrong_id_firstname_email(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, self.wrongFirstname, 'Kowalski',
                                                                 self.wrongEmail)
 
-    def test_item_init_wrong_id_firstname_lastname_email(self):
+    def test_client_init_wrong_id_firstname_lastname_email(self):
         assert_that(Client).raises(ValueError).when_called_with(self.wrongId, self.wrongFirstname, self.wrongLastname,
                                                                 self.wrongEmail)
 
