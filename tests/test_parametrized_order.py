@@ -4,7 +4,7 @@ from src.order import Order
 from parameterized import *
 
 
-@parameterized_class(('wrongPositiveInt', 'wrongPositiveInt'), [
+@parameterized_class(('wrongId', 'wrongIdClient'), [
     ({}, {}),
     ([], []),
     (True, True),
@@ -19,10 +19,10 @@ from parameterized import *
 class TestParametrizedOrder(unittest.TestCase):
 
     def test_order_init_wrong_id(self):
-        assert_that(Order).raises(ValueError).when_called_with(self.wrongPositiveInt, 2)
+        assert_that(Order).raises(ValueError).when_called_with(self.wrongId, 2)
 
     def test_order_init_wrong_id_client(self):
-        assert_that(Order).raises(ValueError).when_called_with(1, self.wrongPositiveInt)
+        assert_that(Order).raises(ValueError).when_called_with(1, self.wrongIdClient)
 
     def test_order_init_wrong_id_id_client(self):
-        assert_that(Order).raises(ValueError).when_called_with(self.wrongPositiveInt, self.wrongPositiveInt)
+        assert_that(Order).raises(ValueError).when_called_with(self.wrongId, self.wrongIdClient)
