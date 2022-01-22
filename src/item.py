@@ -14,4 +14,12 @@ class Item:
         self.value = value
 
     def add_item_to_database(self):
-        Database.add_item(self)
+        return Database.add_item(self)
+
+    def edit_item_in_database(self, id, new_id=None, name=None, value=None):
+        temp = {
+            'id': new_id,
+            'name': name,
+            'value': value
+        }
+        return Database.edit_item(id, temp)
