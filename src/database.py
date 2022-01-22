@@ -1,2 +1,4 @@
 class Database:
-    pass
+
+    def add_item(self, item):
+        pass
