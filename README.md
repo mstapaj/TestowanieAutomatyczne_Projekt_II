@@ -1,2 +1,2 @@
-# -TestowanieAutomatyczne_Projekt_II
-Projekt II z Testowania automatycznego 
+# TestowanieAutomatyczne_Projekt_I
+Projekt I z Testowania automatycznego
