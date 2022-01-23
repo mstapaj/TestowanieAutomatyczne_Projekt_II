@@ -12,9 +12,10 @@ class Item:
         self.id = id
         self.name = name
         self.value = value
+        self.database=Database()
 
     def add_item_to_database(self):
-        return Database.add_item(self)
+        return self.database.add_item(self)
 
     def edit_item_in_database(self, id, new_id=None, name=None, value=None):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
@@ -31,9 +32,9 @@ class Item:
             self.value = value
         elif value is not None:
             raise ValueError('Wartość musi być dodatnią liczbą zmiennoprzecinkową')
-        return Database.edit_item(id, self)
+        return self.database.edit_item(id, self)
 
     def delete_item_in_database(self, id):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
-        return Database.delete_item(id)
+        return self.database.delete_item(id)
