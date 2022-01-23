@@ -64,3 +64,6 @@ class Client:
         if not isinstance(word, str):
             raise ValueError('Błedny typ danych w wyszukiwanym imieniu lub nazwisku')
         return self.database.show_clients_by_firstname_and_lastname(word)
+
+    def add_order_to_client(self, order_id):
+        return self.database.add_order_to_client(self.id, order_id)
