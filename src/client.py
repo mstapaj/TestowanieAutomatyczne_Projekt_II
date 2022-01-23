@@ -1,3 +1,6 @@
+from src.database import Database
+
+
 class Client:
     def __init__(self, id, firstname, lastname, email):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
@@ -15,3 +18,7 @@ class Client:
         self.lastname = lastname
         self.email = email
         self.orders = []
+        self.database = Database()
+
+    def add_client_to_database(self):
+        return self.database.add_client_to_database(self)
