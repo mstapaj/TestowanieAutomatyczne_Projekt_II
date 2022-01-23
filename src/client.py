@@ -51,3 +51,6 @@ class Client:
 
     def show_clients(self):
         return self.database.show_clients()
+
+    def show_client_by_id(self, id):
+        return self.database.show_client_by_id(id)
