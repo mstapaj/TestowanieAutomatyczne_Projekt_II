@@ -37,3 +37,13 @@ class TestItem(unittest.TestCase):
         self.item.delete_item_in_database = Mock(side_effect=[None, ValueError('Nie istnieje przedmiot o takim id')])
         self.item.delete_item_in_database(2)
         assert_that(self.item.delete_item_in_database).raises(ValueError).when_called_with(2)
+
+    def test_show_items_from_database(self):
+        self.item.show_items_from_database = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka', 'value': 35.99}, {'id': 2, 'name': 'Rower', 'value': 399.99}])
+        assert_that(self.item.show_items_from_database()).is_equal_to(
+            [{'id': 1, 'name': 'Piłka', 'value': 35.99}, {'id': 2, 'name': 'Rower', 'value': 399.99}])
+
+    def test_show_items_from_database_empty(self):
+        self.item.show_items_from_database = Mock(return_value=[])
+        assert_that(self.item.show_items_from_database()).is_equal_to([])

@@ -12,7 +12,7 @@ class Item:
         self.id = id
         self.name = name
         self.value = value
-        self.database=Database()
+        self.database = Database()
 
     def add_item_to_database(self):
         return self.database.add_item(self)
