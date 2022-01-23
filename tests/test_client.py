@@ -61,3 +61,15 @@ class TestClient(unittest.TestCase):
     def test_show_client_by_id_no_client(self):
         self.client.show_client_by_id = Mock(side_effect=ValueError('Nie istnieje klient o takim id'))
         assert_that(self.client.show_client_by_id).raises(ValueError).when_called_with(5)
+
+    def test_show_clients_by_firstname_and_lastname(self):
+        self.client.show_clients_by_firstname_and_lastname = Mock(
+            return_value=[{'id': 1, "firstname": "Michał", "lastname": "Kowal", "email": 'example@example.com'},
+                          {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+        assert_that(self.client.show_clients_by_firstname_and_lastname('Kowal')).is_equal_to(
+            [{'id': 1, "firstname": "Michał", "lastname": "Kowal", "email": 'example@example.com'},
+             {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+
+    def test_show_clients_by_firstname_and_lastname_empty(self):
+        self.client.show_clients_by_firstname_and_lastname = Mock(return_value=[])
+        assert_that(self.client.show_clients_by_firstname_and_lastname('abascasd')).is_equal_to([])
