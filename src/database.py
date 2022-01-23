@@ -26,3 +26,6 @@ class Database:
 
     def delete_client(self, id):
         pass
+
+    def show_clients(self):
+        pass
