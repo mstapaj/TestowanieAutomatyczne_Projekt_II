@@ -52,7 +52,7 @@ class TestParametrizedItem(unittest.TestCase):
     (-4, -4, -4, -4),
     (None, 2.1, 2, 'aaa')
 ])
-class TestParametrizedEditItemToDatabase(unittest.TestCase):
+class TestParametrizedEditItemInDatabase(unittest.TestCase):
 
     def setUp(self):
         self.temp = Item(1, 'Piłka', 2.5)

@@ -65,7 +65,7 @@ class TestParametrizedItem(unittest.TestCase):
                                                                 'example@example.com')
 
     def test_client_init_wrong_firstname_lastname_email(self):
-        assert_that(Client).raises(ValueError).when_called_with(1,self.wrongFirstname, self.wrongLastname,
+        assert_that(Client).raises(ValueError).when_called_with(1, self.wrongFirstname, self.wrongLastname,
                                                                 self.wrongEmail)
 
     def test_client_init_wrong_id_lastname_email(self):
@@ -81,3 +81,190 @@ class TestParametrizedItem(unittest.TestCase):
                                                                 self.wrongEmail)
 
 
+@parameterized_class(('wrongId', 'wrongNewId', 'wrongFirstname', 'wrongLastname', 'wrongEmail'), [
+    ({}, {}, {}, {}, {}),
+    ([], [], [], [], []),
+    (True, True, True, True, True),
+    (False, False, False, False, False),
+    (None, None, None, None, None),
+    ("abc", "abc", 2, 2, 2),
+    ("", "", -2, -2, -2, -2),
+    (3.13, 3.13, 3.13, 3.12, 3.12),
+    (-2.56, -2.41, -2.82, -3.25, -3.11),
+    (-4, -4, -4, -4, -4),
+    ("AAAAAAAA", "AAAAAAAA", 2, 2, 'AAaaa'),
+    ("xxxxxxxx", "xxxxxxxx", -10, -10, 'aaaaacos.com')
+])
+class TestParametrizedEditClientInDatabase(unittest.TestCase):
+    def setUp(self):
+        self.temp = Client(1, 'Jan', 'Kowalski', 'example@example.com')
+
+    def test_edit_client_in_database_wrong_id(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3, 'Ola',
+                                                                                           'Kot', 'exa@example.com')
+
+    def test_edit_client_in_database_wrong_new_id(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId, 'Ola',
+                                                                                           'Kot', 'exa@example.com')
+
+    def test_edit_client_in_database_wrong_firstname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, self.wrongFirstname,
+                                                                                           'Kot', 'exa@example.com')
+
+    def test_edit_client_in_database_wrong_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, 'Ola',
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, 'Ola', 'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_new_id(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId, 'Ola',
+                                                                                           'Kot',
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_new_id_firstname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId,
+                                                                                           self.wrongFirstname, 'Kot',
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_firstname_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, 'Jan',
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           3, 'Ola',
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_new_id_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId,
+                                                                                           'Jan', self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_firstname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, self.wrongFirstname,
+                                                                                           'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_new_id_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId, 'Jan',
+                                                                                           'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3, 'Jan',
+                                                                                           'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_firstname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3,
+                                                                                           self.wrongFirstname,
+                                                                                           'Kot',
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_id_new_id_firstname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId,
+                                                                                           self.wrongFirstname,
+                                                                                           'Kot',
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_new_id_firstname_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId,
+                                                                                           self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_firstname_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, 3, self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3, 'Jan',
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_new_id_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId, 'Ola',
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_new_id_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId,
+                                                                                           'Jan', self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_new_id_firstname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId,
+                                                                                           self.wrongFirstname,
+                                                                                           'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_new_id_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId, 'Jan',
+                                                                                           'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_firstname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3,
+                                                                                           self.wrongFirstname,
+                                                                                           'Kot',
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_firstname_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3,
+                                                                                           self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_id_new_id_firstname_lastname(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId,
+                                                                                           self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           'exa@example.com')
+
+    def test_edit_client_in_database_wrong_new_id_firstname_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(1, self.wrongNewId,
+                                                                                           self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_firstname_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId, 3,
+                                                                                           self.wrongFirstname,
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_new_id_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId, 'Jan',
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_new_id_firstname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId, 'Ola',
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
+
+    def test_edit_client_in_database_wrong_id_new_id_firstname_lastname_email(self):
+        assert_that(self.temp.edit_client_in_database).raises(ValueError).when_called_with(self.wrongId,
+                                                                                           self.wrongNewId,
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongLastname,
+                                                                                           self.wrongEmail)
