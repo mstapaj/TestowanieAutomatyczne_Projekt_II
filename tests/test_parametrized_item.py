@@ -124,3 +124,6 @@ class TestParametrizedEditItemToDatabase(unittest.TestCase):
         assert_that(self.temp.edit_item_in_database).raises(ValueError).when_called_with(self.wrongId, self.wrongNewId,
                                                                                          self.wrongName,
                                                                                          self.wrongValue)
+
+    def test_delete_item_in_database(self):
+        assert_that(self.temp.delete_item_in_database).raises(ValueError).when_called_with(self.wrongId)
