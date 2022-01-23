@@ -8,3 +8,6 @@ class Database:
 
     def delete_item(self,id):
         pass
+
+    def show_items(self):
+        pass
