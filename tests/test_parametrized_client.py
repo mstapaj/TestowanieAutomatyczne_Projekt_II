@@ -278,3 +278,6 @@ class TestParametrizedEditClientInDatabase(unittest.TestCase):
     def test_show_clients_by_firstname_and_lastname(self):
         assert_that(self.temp.show_clients_by_firstname_and_lastname).raises(ValueError).when_called_with(
             self.wrongFirstname)
+
+    def test_add_order_to_client(self):
+        assert_that(self.temp.add_order_to_client).raises(ValueError).when_called_with(self.wrongId)
