@@ -21,4 +21,4 @@ class Client:
         self.database = Database()
 
     def add_client_to_database(self):
-        return self.database.add_client_to_database(self)
+        return self.database.add_client(self)

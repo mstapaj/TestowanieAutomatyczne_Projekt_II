@@ -18,3 +18,14 @@ class TestClient(unittest.TestCase):
         self.client.add_client_to_database = Mock(side_effect=[None, ValueError])
         self.client.add_client_to_database()
         assert_that(self.client.add_client_to_database).raises(ValueError)
+
+    def test_edit_client_in_database(self):
+        self.client.edit_client_in_database = Mock()
+        self.client.edit_client_in_database(2, 1, 'Ola', 'Kot', 'example@example.com')
+        self.client.edit_client_in_database.assert_called_once()
+
+    def test_edit_client_in_database_two_times(self):
+        self.client.edit_client_in_database = Mock(side_effect=[None, ValueError])
+        self.client.edit_client_in_database(1, 1, 'Ola', 'Kot', 'example@exaXXLmple.com')
+        assert_that(self.client.edit_client_in_database).raises(ValueError).when_called_with(1, 1, 'Ola', 'Kot',
+                                                                                             'example@exaXXLmple.com')
