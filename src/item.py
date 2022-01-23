@@ -34,4 +34,6 @@ class Item:
         return Database.edit_item(id, self)
 
     def delete_item_in_database(self, id):
+        if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
+            raise ValueError('Id musi być dodatnią liczbą całkowitą')
         return Database.delete_item(id)
