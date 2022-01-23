@@ -26,4 +26,14 @@ class TestItem(unittest.TestCase):
     def test_edit_item_in_database_two_time(self):
         self.item.edit_item_in_database = Mock(side_effect=[None, ValueError('Stary i nowy obiekt są identyczne')])
         self.item.edit_item_in_database(2, 2, 'Latarka', 20.99)
-        assert_that(self.item.edit_item_in_database).raises(ValueError)
+        assert_that(self.item.edit_item_in_database).raises(ValueError).when_called_with(2, 2, 'Latarka', 20.99)
+
+    def test_delete_item_in_database(self):
+        self.item.delete_item_in_database = Mock(return_value='Pomyślnie usunięto przedmiot')
+        assert_that(self.item.delete_item_in_database(2)).is_equal_to(
+            'Pomyślnie usunięto przedmiot')
+
+    def test_delete_item_in_database_two_time(self):
+        self.item.delete_item_in_database = Mock(side_effect=[None, ValueError('Nie istnieje przedmiot o takim id')])
+        self.item.delete_item_in_database(2)
+        assert_that(self.item.delete_item_in_database).raises(ValueError).when_called_with(2)
