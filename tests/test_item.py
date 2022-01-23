@@ -55,3 +55,13 @@ class TestItem(unittest.TestCase):
     def test_show_item_by_id_no_item(self):
         self.item.show_item_by_id = Mock(side_effect=ValueError('Nie istnieje przedmiot o takim id'))
         assert_that(self.item.show_item_by_id).raises(ValueError).when_called_with(5)
+
+    def test_show_items_by_name(self):
+        self.item.show_items_by_name = Mock(return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 35.99},
+                                                          {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
+        assert_that(self.item.show_items_by_name('Piłka')).is_equal_to(
+            [{'id': 1, 'name': 'Piłka Nike', 'value': 35.99}, {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
+
+    def test_show_items_by_name_empty(self):
+        self.item.show_items_by_name = Mock(return_value=[])
+        assert_that(self.item.show_items_by_name('Puma')).is_equal_to([])
