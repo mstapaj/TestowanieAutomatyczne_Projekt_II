@@ -38,3 +38,6 @@ class Item:
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         return self.database.delete_item(id)
+
+    def show_items_from_database(self):
+        return self.database.show_items()
