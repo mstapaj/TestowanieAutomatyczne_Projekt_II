@@ -48,4 +48,6 @@ class Item:
         return self.database.show_item_by_id(id)
 
     def show_items_by_name(self, name):
+        if not isinstance(name, str):
+            raise ValueError('Nazwa musi być typu string')
         return self.database.show_items_by_name(name)
