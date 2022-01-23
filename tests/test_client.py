@@ -39,3 +39,15 @@ class TestClient(unittest.TestCase):
         self.client.delete_client_in_database = Mock(side_effect=[None, ValueError])
         self.client.delete_client_in_database(2)
         assert_that(self.client.delete_client_in_database).raises(ValueError).when_called_with(2)
+
+    def test_show_clients(self):
+        self.client.show_clients = Mock(
+            return_value=[{'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'},
+                          {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+        assert_that(self.client.show_clients()).is_equal_to(
+            [{'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'},
+             {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+
+    def test_show_clients_empty(self):
+        self.client.show_clients = Mock(return_value=[])
+        assert_that(self.client.show_clients()).is_equal_to([])
