@@ -19,21 +19,16 @@ class Item:
     def edit_item_in_database(self, id, new_id=None, name=None, value=None):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
-        temp = {
-            'id': None,
-            'name': None,
-            'value': None
-        }
         if isinstance(new_id, int) and str(new_id) != 'True' and str(new_id) != 'False' and new_id >= 0:
-            temp['id'] = new_id
+            self.id = new_id
         elif new_id is not None:
             raise ValueError('Nowe id musi być dodatnią liczbą całkowitą')
         if isinstance(name, str):
-            temp['name'] = name
+            self.name = name
         elif name is not None:
             raise ValueError('Błedny typ danych w nazwie')
         if isinstance(value, int) and str(value) != 'True' and str(value) != 'False' and value >= 0:
-            temp['value'] = value
+            self.value = value
         elif value is not None:
             raise ValueError('Wartość musi być dodatnią liczbą zmiennoprzecinkową')
-        return Database.edit_item(id, temp)
+        return Database.edit_item(id, self)
