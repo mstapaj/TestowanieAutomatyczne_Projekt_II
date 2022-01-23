@@ -32,3 +32,6 @@ class Item:
         elif value is not None:
             raise ValueError('Wartość musi być dodatnią liczbą zmiennoprzecinkową')
         return Database.edit_item(id, self)
+
+    def delete_item_in_database(self, id):
+        return Database.delete_item(id)
