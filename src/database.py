@@ -14,3 +14,6 @@ class Database:
 
     def show_item_by_id(self, id):
         pass
+
+    def show_items_by_name(self, name):
+        pass
