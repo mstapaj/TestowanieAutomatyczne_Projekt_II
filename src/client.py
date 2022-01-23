@@ -1,8 +1,5 @@
-from src.database import Database
-
-
 class Client:
-    def __init__(self, id, firstname, lastname, email):
+    def __init__(self, id, firstname, lastname, email, database):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         if not isinstance(firstname, str):
@@ -18,7 +15,7 @@ class Client:
         self.lastname = lastname
         self.email = email
         self.orders = []
-        self.database = Database()
+        self.database = database
 
     def add_client_to_database(self):
         return self.database.add_client(self)
