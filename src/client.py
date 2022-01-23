@@ -53,4 +53,6 @@ class Client:
         return self.database.show_clients()
 
     def show_client_by_id(self, id):
+        if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
+            raise ValueError('Id musi być dodatnią liczbą całkowitą')
         return self.database.show_client_by_id(id)
