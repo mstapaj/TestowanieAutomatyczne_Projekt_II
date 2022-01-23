@@ -43,3 +43,6 @@ class Client:
         elif email is not None:
             raise ValueError('Błedny typ danych w emailu, email musi zawierać @')
         return self.database.edit_client(self)
+
+    def delete_client_in_database(self, id):
+        return self.database.delete_client(id)
