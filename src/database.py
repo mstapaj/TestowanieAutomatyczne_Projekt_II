@@ -20,3 +20,6 @@ class Database:
 
     def add_client(self, client):
         pass
+
+    def edit_client(self, new_client):
+        pass

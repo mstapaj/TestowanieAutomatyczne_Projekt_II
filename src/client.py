@@ -24,4 +24,4 @@ class Client:
         return self.database.add_client(self)
 
     def edit_client_in_database(self):
-        return self.database.edit_client()
+        return self.database.edit_client(self)
