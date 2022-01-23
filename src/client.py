@@ -48,3 +48,6 @@ class Client:
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         return self.database.delete_client(id)
+
+    def show_clients(self):
+        return self.database.show_clients()
