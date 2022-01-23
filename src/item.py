@@ -41,3 +41,6 @@ class Item:
 
     def show_items_from_database(self):
         return self.database.show_items()
+
+    def show_item_by_id(self, id):
+        return self.database.show_item_by_id(id)
