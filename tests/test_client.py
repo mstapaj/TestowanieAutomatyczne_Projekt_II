@@ -30,7 +30,7 @@ class TestClient(unittest.TestCase):
         self.database.edit_client = Mock(side_effect=[None, ValueError])
         self.client.edit_client_in_database(1, 1, 'Ola', 'Kot', 'example@exaXXLmple.com')
         assert_that(self.database.edit_client).raises(ValueError).when_called_with(1, 1, 'Ola', 'Kot',
-                                                                                             'example@exaXXLmple.com')
+                                                                                   'example@exaXXLmple.com')
 
     def test_delete_client_in_database(self):
         self.database.delete_client = Mock()
@@ -75,3 +75,13 @@ class TestClient(unittest.TestCase):
     def test_show_clients_by_firstname_and_lastname_empty(self):
         self.database.show_clients_by_firstname_and_lastname = Mock(return_value=[])
         assert_that(self.client.show_clients_by_firstname_and_lastname('abascasd')).is_equal_to([])
+
+    def test_add_order_to_client(self):
+        self.database.add_order_to_client = Mock()
+        self.client.add_order_to_client(1)
+        self.database.add_order_to_client.assert_called_once_with(1, 1)
+
+    def test_add_order_to_client_two_times(self):
+        self.database.add_order_to_client = Mock(side_effect=[None, ValueError])
+        self.client.add_order_to_client(1)
+        assert_that(self.database.add_order_to_client).raises(ValueError).when_called_with(1)

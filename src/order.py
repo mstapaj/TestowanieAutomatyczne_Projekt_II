@@ -14,7 +14,3 @@ class Order:
             self.database = Database()
         else:
             self.database = database
-
-
-temp = Database()
-print(type(temp))
