@@ -35,3 +35,6 @@ class Database:
 
     def show_clients_by_firstname_and_lastname(self, word):
         pass
+
+    def add_order_to_client(self, client_id, order_id):
+        pass
