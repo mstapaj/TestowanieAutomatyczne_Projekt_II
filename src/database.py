@@ -32,3 +32,6 @@ class Database:
 
     def show_client_by_id(self, id):
         pass
+
+    def show_clients_by_firstname_and_lastname(self,word):
+        pass
