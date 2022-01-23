@@ -29,3 +29,13 @@ class TestClient(unittest.TestCase):
         self.client.edit_client_in_database(1, 1, 'Ola', 'Kot', 'example@exaXXLmple.com')
         assert_that(self.client.edit_client_in_database).raises(ValueError).when_called_with(1, 1, 'Ola', 'Kot',
                                                                                              'example@exaXXLmple.com')
+
+    def test_delete_client_in_database(self):
+        self.client.delete_client_in_database = Mock()
+        self.client.delete_client_in_database(2)
+        self.client.delete_client_in_database.assert_called_once()
+
+    def test_delete_client_in_database_two_times(self):
+        self.client.delete_client_in_database = Mock(side_effect=[None, ValueError])
+        self.client.delete_client_in_database(2)
+        assert_that(self.client.delete_client_in_database).raises(ValueError).when_called_with(2)
