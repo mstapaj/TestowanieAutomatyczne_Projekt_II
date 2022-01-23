@@ -23,3 +23,6 @@ class Database:
 
     def edit_client(self, new_client):
         pass
+
+    def delete_client(self, id):
+        pass
