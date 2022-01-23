@@ -268,3 +268,6 @@ class TestParametrizedEditClientInDatabase(unittest.TestCase):
                                                                                            self.wrongLastname,
                                                                                            self.wrongLastname,
                                                                                            self.wrongEmail)
+
+    def test_delete_client_in_database(self):
+        assert_that(self.temp.delete_client_in_database).raises(ValueError).when_called_with(self.wrongId)
