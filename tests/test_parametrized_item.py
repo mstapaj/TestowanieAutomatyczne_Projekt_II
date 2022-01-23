@@ -130,3 +130,6 @@ class TestParametrizedEditItemToDatabase(unittest.TestCase):
 
     def test_show_item_by_id(self):
         assert_that(self.temp.show_item_by_id).raises(ValueError).when_called_with(self.wrongId)
+
+    def test_show_items_by_name(self):
+        assert_that(self.temp.show_items_by_name).raises(ValueError).when_called_with(self.wrongName)
