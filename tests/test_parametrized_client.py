@@ -274,3 +274,7 @@ class TestParametrizedEditClientInDatabase(unittest.TestCase):
 
     def test_show_client_by_id(self):
         assert_that(self.temp.show_client_by_id).raises(ValueError).when_called_with(self.wrongId)
+
+    def test_show_clients_by_firstname_and_lastname(self):
+        assert_that(self.temp.show_clients_by_firstname_and_lastname).raises(ValueError).when_called_with(
+            self.wrongFirstname)
