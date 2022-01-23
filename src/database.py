@@ -17,3 +17,6 @@ class Database:
 
     def show_items_by_name(self, name):
         pass
+
+    def add_client(self, client):
+        pass
