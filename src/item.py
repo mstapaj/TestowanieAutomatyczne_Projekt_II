@@ -1,8 +1,5 @@
-from src.database import Database
-
-
 class Item:
-    def __init__(self, id, name, value):
+    def __init__(self, id, name, value, database):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         if not isinstance(name, str):
@@ -12,7 +9,7 @@ class Item:
         self.id = id
         self.name = name
         self.value = value
-        self.database = Database()
+        self.database = database
 
     def add_item_to_database(self):
         return self.database.add_item(self)
@@ -28,7 +25,7 @@ class Item:
             self.name = name
         elif name is not None:
             raise ValueError('Błedny typ danych w nazwie')
-        if isinstance(value, int) and str(value) != 'True' and str(value) != 'False' and value >= 0:
+        if isinstance(value, float) and str(value) != 'True' and str(value) != 'False' and value >= 0:
             self.value = value
         elif value is not None:
             raise ValueError('Wartość musi być dodatnią liczbą zmiennoprzecinkową')
