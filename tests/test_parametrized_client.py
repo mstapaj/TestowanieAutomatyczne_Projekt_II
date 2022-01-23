@@ -86,7 +86,7 @@ class TestParametrizedItem(unittest.TestCase):
     ([], [], [], [], []),
     (True, True, True, True, True),
     (False, False, False, False, False),
-    (None, None, None, None, None),
+    (None, "abc", 87, 87, 123),
     ("abc", "abc", 2, 2, 2),
     ("", "", -2, -2, -2, -2),
     (3.13, 3.13, 3.13, 3.12, 3.12),
