@@ -12,5 +12,5 @@ class Database:
     def show_items(self):
         pass
 
-    def show_item_by_id(self,id):
+    def show_item_by_id(self, id):
         pass
