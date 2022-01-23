@@ -1,5 +1,8 @@
+from src.database import Database
+
+
 class Item:
-    def __init__(self, id, name, value, database):
+    def __init__(self, id, name, value, database=None):
         if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         if not isinstance(name, str):
@@ -9,7 +12,10 @@ class Item:
         self.id = id
         self.name = name
         self.value = value
-        self.database = database
+        if not isinstance(database, Database):
+            self.database = Database()
+        else:
+            self.database = database
 
     def add_item_to_database(self):
         return self.database.add_item(self)
