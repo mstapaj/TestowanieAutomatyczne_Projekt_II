@@ -57,5 +57,7 @@ class Client:
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         return self.database.show_client_by_id(id)
 
-    def show_clients_by_firstname_and_lastname(self,word):
+    def show_clients_by_firstname_and_lastname(self, word):
+        if not isinstance(word, str):
+            raise ValueError('Błedny typ danych w wyszukiwanym imieniu lub nazwisku')
         return self.database.show_clients_by_firstname_and_lastname(word)
