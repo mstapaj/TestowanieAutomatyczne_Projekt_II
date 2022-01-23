@@ -29,3 +29,6 @@ class Database:
 
     def show_clients(self):
         pass
+
+    def show_client_by_id(self, id):
+        pass
