@@ -51,3 +51,13 @@ class TestClient(unittest.TestCase):
     def test_show_clients_empty(self):
         self.client.show_clients = Mock(return_value=[])
         assert_that(self.client.show_clients()).is_equal_to([])
+
+    def test_show_client_by_id(self):
+        self.client.show_client_by_id = Mock(
+            return_value={'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'})
+        assert_that(self.client.show_client_by_id(1)).is_equal_to(
+            {'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'})
+
+    def test_show_client_by_id_no_client(self):
+        self.client.show_client_by_id = Mock(side_effect=ValueError('Nie istnieje klient o takim id'))
+        assert_that(self.client.show_client_by_id).raises(ValueError).when_called_with(5)
