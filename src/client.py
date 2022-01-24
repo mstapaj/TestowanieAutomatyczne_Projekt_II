@@ -1,4 +1,5 @@
 from src.database import Database
+from src.order import Order
 
 
 class Client:
@@ -68,9 +69,17 @@ class Client:
     def add_order_to_client(self, order_id):
         if not isinstance(order_id, int) or order_id < 0 or str(order_id) == 'True' or str(order_id) == 'False':
             raise ValueError('Id zamówienia musi być dodatnią liczbą całkowitą')
+        for i in self.orders:
+            if i.id == order_id:
+                raise ValueError('Zamowienie o takim id znajduje sie juz w bazie')
+        self.orders.append(Order(order_id, self.id))
         return self.database.add_order_to_client(self.id, order_id)
 
     def delete_order_from_client(self, order_id):
         if not isinstance(order_id, int) or order_id < 0 or str(order_id) == 'True' or str(order_id) == 'False':
             raise ValueError('Id zamówienia musi być dodatnią liczbą całkowitą')
+        newOrders = []
+        for i in self.orders:
+            if i.id != order_id:
+                newOrders.append(i)
         return self.database.delete_order_from_client(self.id, order_id)
