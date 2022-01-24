@@ -71,4 +71,6 @@ class Client:
         return self.database.add_order_to_client(self.id, order_id)
 
     def delete_order_from_client(self, order_id):
-        return self.database.delete_order_from_client(self.id,order_id)
+        if not isinstance(order_id, int) or order_id < 0 or str(order_id) == 'True' or str(order_id) == 'False':
+            raise ValueError('Id zamówienia musi być dodatnią liczbą całkowitą')
+        return self.database.delete_order_from_client(self.id, order_id)
