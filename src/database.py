@@ -41,3 +41,6 @@ class Database:
 
     def delete_order_from_client(self, client_id, order_id):
         pass
+
+    def add_order(self, order):
+        pass
