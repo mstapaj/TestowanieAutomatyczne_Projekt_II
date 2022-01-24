@@ -12,11 +12,21 @@ class TestOrder(unittest.TestCase):
         self.order = Order(1, 1, self.database)
 
     def test_add_order_to_database(self):
-        self.database.add_order=MagicMock()
+        self.database.add_order = MagicMock()
         self.order.add_order_to_database()
         self.database.add_order.assert_called_once()
 
     def test_add_order_to_database_two_times(self):
-        self.database.add_order=MagicMock(side_effect=[None, ValueError])
+        self.database.add_order = MagicMock(side_effect=[None, ValueError])
         self.order.add_order_to_database()
-        assert_that(self.database.add_order).raises(ValueError)
+        assert_that(self.order.add_order_to_database).raises(ValueError)
+
+    def test_add_item_to_order(self):
+        self.database.add_item_to_order = MagicMock()
+        self.order.add_item_to_order(1)
+        self.database.add_item_to_order.assert_called_once_with(1, 1)
+
+    def test_add_item_to_order_two_times(self):
+        self.database.add_item_to_order = MagicMock(side_effect=[None, ValueError])
+        self.order.add_item_to_order(1)
+        assert_that(self.order.add_item_to_order).raises(ValueError).when_called_with(1)
