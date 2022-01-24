@@ -21,7 +21,7 @@ class Database:
     def add_client(self, client):
         pass
 
-    def edit_client(self, new_client):
+    def edit_client(self, id, new_client):
         pass
 
     def delete_client(self, id):
@@ -43,6 +43,9 @@ class Database:
         pass
 
     def add_order(self, order):
+        pass
+
+    def edit_order(self, id, new_order):
         pass
 
     def add_item_to_order(self, client_id, item_id):
