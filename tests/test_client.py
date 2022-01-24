@@ -85,3 +85,13 @@ class TestClient(unittest.TestCase):
         self.database.add_order_to_client = Mock(side_effect=[None, ValueError])
         self.client.add_order_to_client(1)
         assert_that(self.database.add_order_to_client).raises(ValueError).when_called_with(1)
+
+    def test_delete_order_from_client(self):
+        self.database.delete_order_from_client = Mock()
+        self.client.delete_order_from_client(1)
+        self.database.delete_order_from_client.assert_called_once_with(1, 1)
+
+    def test_delete_order_from_client_two_times(self):
+        self.database.delete_order_from_client = Mock(side_effect=[None, ValueError])
+        self.client.delete_order_from_client(1)
+        assert_that(self.database.delete_order_from_client).raises(ValueError).when_called_with(1)
