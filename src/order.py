@@ -18,5 +18,10 @@ class Order:
     def add_order_to_database(self):
         return self.database.add_order(self)
 
+    def edit_order_in_database(self, id, new_id=None, client_id=None):
+        self.id = new_id
+        self.id_client = client_id
+        return self.database.edit_order(id, self)
+
     def add_item_to_order(self, item_id):
         return self.database.add_item_to_order(self.id, item_id)
