@@ -69,3 +69,6 @@ class TestParametrizedEditOrder(unittest.TestCase):
     def test_edit_order_in_database_wrong_id_new_id_client_id(self):
         assert_that(self.temp.edit_order_in_database).raises(ValueError).when_called_with(self.wrongId, self.wrongNewId,
                                                                                           self.wrongClientId)
+
+    def test_delete_order_from_database(self):
+        assert_that(self.temp.delete_order_from_database).raises(ValueError).when_called_with(self.wrongId)
