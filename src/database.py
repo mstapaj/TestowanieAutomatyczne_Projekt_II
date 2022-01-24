@@ -38,3 +38,6 @@ class Database:
 
     def add_order_to_client(self, client_id, order_id):
         pass
+
+    def delete_order_from_client(self, client_id, order_id):
+        pass
