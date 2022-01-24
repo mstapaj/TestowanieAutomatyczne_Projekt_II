@@ -14,3 +14,6 @@ class Order:
             self.database = Database()
         else:
             self.database = database
+
+    def add_order_to_database(self):
+        return self.database.add_order()
