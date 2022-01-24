@@ -31,6 +31,16 @@ class TestOrder(unittest.TestCase):
         self.order.edit_order_in_database(1, 1, 3)
         assert_that(self.order.edit_order_in_database).raises(ValueError).when_called_with(1, 1, 3)
 
+    def test_delete_order_from_database(self):
+        self.database.delete_order = MagicMock()
+        self.order.delete_order_from_database(1)
+        self.database.delete_order.assert_called_once()
+
+    def test_delete_order_from_database_two_times(self):
+        self.database.delete_order = MagicMock(side_effect=[None, ValueError])
+        self.order.delete_order_from_database(1)
+        assert_that(self.order.delete_order_from_database).raises(ValueError).when_called_with(1)
+
     def test_add_item_to_order(self):
         self.database.add_item_to_order = MagicMock()
         self.order.add_item_to_order(1)
