@@ -56,4 +56,4 @@ class TestOrder(unittest.TestCase):
     def test_delete_item_from_order_two_times(self):
         self.database.delete_item_from_order = MagicMock(side_effect=[None, ValueError])
         self.order.delete_item_from_order(1)
-        assert_that(self.order.delete_item_from_order).raises(ValueError).when_called_with(1, 1)
+        assert_that(self.order.delete_item_from_order).raises(ValueError).when_called_with(1)

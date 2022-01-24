@@ -41,3 +41,6 @@ class Order:
             raise ValueError('Id musi być dodatnią liczbą całkowitą')
         if len(self.database.show_item_by_id(item_id)) > 0:
             return self.database.add_item_to_order(self.id_client, item_id)
+
+    def delete_item_from_order(self, item_id):
+        return self.database.delete_item_from_order(self.id_client, item_id)
