@@ -48,5 +48,8 @@ class Database:
     def edit_order(self, id, new_order):
         pass
 
+    def delete_order(self, id):
+        pass
+
     def add_item_to_order(self, client_id, item_id):
         pass
