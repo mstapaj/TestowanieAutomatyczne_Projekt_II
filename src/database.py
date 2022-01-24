@@ -53,3 +53,6 @@ class Database:
 
     def add_item_to_order(self, client_id, item_id):
         pass
+
+    def delete_item_from_order(self, item_id):
+        pass
