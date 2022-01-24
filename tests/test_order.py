@@ -21,6 +21,17 @@ class TestOrder(unittest.TestCase):
         self.order.add_order_to_database()
         assert_that(self.order.add_order_to_database).raises(ValueError)
 
+    def test_edit_order_in_database(self):
+        self.database.edit_order = MagicMock()
+        self.order.edit_order_in_database(2, 1, 'Ola', 'Kot', 'example@example.com')
+        self.database.edit_order.assert_called_once()
+
+    def test_edit_order_in_database_two_times(self):
+        self.database.edit_order = MagicMock(side_effect=[None, ValueError])
+        self.order.edit_order_in_database(1, 1, 'Ola', 'Kot', 'example@exaXXLmple.com')
+        assert_that(self.order.edit_order_in_database).raises(ValueError).when_called_with(1, 1, 'Ola', 'Kot',
+                                                                                           'example@exaXXLmple.com')
+
     def test_add_item_to_order(self):
         self.database.add_item_to_order = MagicMock()
         self.order.add_item_to_order(1)
