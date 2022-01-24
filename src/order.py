@@ -32,6 +32,8 @@ class Order:
         return self.database.edit_order(id, self)
 
     def delete_order_from_database(self, id):
+        if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
+            raise ValueError('Id musi być dodatnią liczbą całkowitą')
         return self.database.delete_order(id)
 
     def add_item_to_order(self, item_id):
