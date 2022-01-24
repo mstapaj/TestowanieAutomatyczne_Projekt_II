@@ -43,10 +43,6 @@ class TestOrder(unittest.TestCase):
 
     def test_add_item_to_order(self):
         self.database.add_item_to_order = MagicMock()
+        self.database.show_item_by_id = MagicMock(return_value={'id': 1, 'name': 'Piłka', 'value': 35.99})
         self.order.add_item_to_order(1)
         self.database.add_item_to_order.assert_called_once_with(1, 1)
-
-    def test_add_item_to_order_two_times(self):
-        self.database.add_item_to_order = MagicMock(side_effect=[None, ValueError])
-        self.order.add_item_to_order(1)
-        assert_that(self.order.add_item_to_order).raises(ValueError).when_called_with(1)
