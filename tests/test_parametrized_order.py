@@ -34,13 +34,13 @@ class TestParametrizedOrder(unittest.TestCase):
     (True, True, True),
     (False, False, False),
     (None, 'AA', 'AA'),
-    ("abc", "abc"),
-    ("", ""),
-    (3.13, 3.13),
-    (-2.56, -2.82),
-    (-4, -4)
+    ("abc", "abc", "abc"),
+    ("", "", ""),
+    (3.13, 3.13, 3.13),
+    (-2.56, -2.82, -2.56),
+    (-4, -4, -4)
 ])
-class TestParamaterizedEditOrder(unittest.TestCase):
+class TestParametrizedEditOrder(unittest.TestCase):
 
     def setUp(self):
         self.temp = Order(1, 1)

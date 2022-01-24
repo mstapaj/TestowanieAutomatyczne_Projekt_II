@@ -19,8 +19,16 @@ class Order:
         return self.database.add_order(self)
 
     def edit_order_in_database(self, id, new_id=None, client_id=None):
-        self.id = new_id
-        self.id_client = client_id
+        if not isinstance(id, int) or id < 0 or str(id) == 'True' or str(id) == 'False':
+            raise ValueError('Id musi być dodatnią liczbą całkowitą')
+        if isinstance(new_id, int) and str(new_id) != 'True' and str(new_id) != 'False' and new_id >= 0:
+            self.id = new_id
+        elif new_id is not None:
+            raise ValueError('Nowe id musi być dodatnią liczbą całkowitą')
+        if isinstance(client_id, int) and str(client_id) != 'True' and str(client_id) != 'False' and client_id >= 0:
+            self.id_client = client_id
+        elif client_id is not None:
+            raise ValueError('Nowe id musi być dodatnią liczbą całkowitą')
         return self.database.edit_order(id, self)
 
     def delete_order_from_database(self, id):
