@@ -23,5 +23,8 @@ class Order:
         self.id_client = client_id
         return self.database.edit_order(id, self)
 
+    def delete_order_from_database(self, id):
+        return self.database.delete_order(id)
+
     def add_item_to_order(self, item_id):
         return self.database.add_item_to_order(self.id, item_id)
