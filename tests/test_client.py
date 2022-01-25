@@ -71,6 +71,12 @@ class TestClient(unittest.TestCase):
             [{'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'},
              {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
 
+    def test_show_clients_length(self):
+        self.database.show_clients = Mock(
+            return_value=[{'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'},
+                          {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+        assert_that(self.client.show_clients()).is_length(2)
+
     def test_show_clients_empty(self):
         self.database.show_clients = Mock(return_value=[])
         assert_that(self.client.show_clients()).is_empty()
@@ -100,6 +106,12 @@ class TestClient(unittest.TestCase):
         assert_that(self.client.show_clients_by_firstname_and_lastname('Kowal')).is_equal_to(
             [{'id': 1, "firstname": "Michał", "lastname": "Kowal", "email": 'example@example.com'},
              {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+
+    def test_show_clients_by_firstname_and_lastname_length(self):
+        self.database.show_clients_by_firstname_and_lastname = Mock(
+            return_value=[{'id': 1, "firstname": "Michał", "lastname": "Kowal", "email": 'example@example.com'},
+                          {'id': 2, "firstname": "Jan", "lastname": "Kowalski", "email": 'exa@example.com'}])
+        assert_that(self.client.show_clients_by_firstname_and_lastname('Kowal')).is_length(2)
 
     def test_show_clients_by_firstname_and_lastname_empty(self):
         self.database.show_clients_by_firstname_and_lastname = Mock(return_value=[])
@@ -146,6 +158,12 @@ class TestClient(unittest.TestCase):
         assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(
             [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
                 {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+
+    def test_show_orders_by_client_id_many_length(self):
+        self.database.show_orders_by_client_id = Mock(
+            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
+                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+        assert_that(self.client.show_orders_by_client_id(1)).is_length(2)
 
     def test_show_orders_by_client_id_empty(self):
         self.database.show_orders_by_client_id = Mock(return_value=[])

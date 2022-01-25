@@ -65,6 +65,11 @@ class TestItem(unittest.TestCase):
         assert_that(self.item.show_items_from_database()).is_equal_to(
             [{'id': 1, 'name': 'Piłka', 'value': 35.99}, {'id': 2, 'name': 'Rower', 'value': 399.99}])
 
+    def test_show_items_from_database_length(self):
+        self.database.show_items = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka', 'value': 35.99}, {'id': 2, 'name': 'Rower', 'value': 399.99}])
+        assert_that(self.item.show_items_from_database()).is_length(2)
+
     def test_show_items_from_database_empty(self):
         self.database.show_items = Mock(return_value=[])
         assert_that(self.item.show_items_from_database()).is_empty()
@@ -82,6 +87,11 @@ class TestItem(unittest.TestCase):
                                                               {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
         assert_that(self.item.show_items_by_name('Piłka')).is_equal_to(
             [{'id': 1, 'name': 'Piłka Nike', 'value': 35.99}, {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
+
+    def test_show_items_by_name_length(self):
+        self.database.show_items_by_name = Mock(return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 35.99},
+                                                              {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
+        assert_that(self.item.show_items_by_name('Piłka')).is_length(2)
 
     def test_show_items_by_name_empty(self):
         self.database.show_items_by_name = Mock(return_value=[])
