@@ -59,3 +59,6 @@ class Database:
 
     def show_orders_by_client_id(self, client_id):
         pass
+
+    def show_items_by_order_id(self, order_id):
+        pass
