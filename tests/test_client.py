@@ -100,14 +100,13 @@ class TestClient(unittest.TestCase):
         self.database.show_orders_by_client_id = Mock(
             return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}])
         assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(
-            [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
-                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+            [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}])
 
     def test_show_orders_by_client_id_many(self):
         self.database.show_orders_by_client_id = Mock(
             return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
                 {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
-        assert_that(self.client.show_orders_by_client_id(2)).is_equal_to(
+        assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(
             [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
                 {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
 

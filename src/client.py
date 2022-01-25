@@ -83,3 +83,6 @@ class Client:
             if i.id != order_id:
                 newOrders.append(i)
         return self.database.delete_order_from_client(self.id, order_id)
+
+    def show_orders_by_client_id(self, client_id):
+        return self.database.show_orders_by_client_id(client_id)
