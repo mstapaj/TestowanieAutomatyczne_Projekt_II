@@ -1,6 +1,6 @@
 import unittest
 from assertpy import assert_that
-from unittest.mock import Mock
+from unittest.mock import Mock, create_autospec
 from src.item import Item
 from src.database import Database
 
@@ -30,6 +30,14 @@ class TestItem(unittest.TestCase):
         self.item.edit_item_in_database(2, 2, 'Latarka', 20.99)
         assert_that(self.item.edit_item_in_database).raises(ValueError).when_called_with(2, 2, 'Latarka', 20.99)
 
+    def test_edit_item_in_database_too_many_args(self):
+        mock_function = create_autospec(self.database.edit_item)
+        assert_that(mock_function).raises(TypeError).when_called_with(2, 2, 2, "Latarka", 28.99)
+
+    def test_edit_item_in_database_too_few_args(self):
+        mock_function = create_autospec(self.database.edit_item)
+        assert_that(mock_function).raises(TypeError).when_called_with(2)
+
     def test_delete_item_in_database(self):
         self.database.delete_item = Mock(return_value='Pomyślnie usunięto przedmiot')
         assert_that(self.item.delete_item_in_database(2)).is_equal_to(
@@ -39,6 +47,14 @@ class TestItem(unittest.TestCase):
         self.database.delete_item = Mock(side_effect=[None, ValueError('Nie istnieje przedmiot o takim id')])
         self.item.delete_item_in_database(2)
         assert_that(self.item.delete_item_in_database).raises(ValueError).when_called_with(2)
+
+    def test_delete_item_in_database_too_many_args(self):
+        mock_function = create_autospec(self.database.delete_item)
+        assert_that(mock_function).raises(TypeError).when_called_with(2, 2, 2)
+
+    def test_delete_item_in_database_too_few_args(self):
+        mock_function = create_autospec(self.database.delete_item)
+        assert_that(mock_function).raises(TypeError).when_called_with()
 
     def test_show_items_from_database(self):
         self.database.show_items = Mock(
@@ -60,7 +76,7 @@ class TestItem(unittest.TestCase):
 
     def test_show_items_by_name(self):
         self.database.show_items_by_name = Mock(return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 35.99},
-                                                          {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
+                                                              {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
         assert_that(self.item.show_items_by_name('Piłka')).is_equal_to(
             [{'id': 1, 'name': 'Piłka Nike', 'value': 35.99}, {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
 
