@@ -73,7 +73,7 @@ class TestClient(unittest.TestCase):
 
     def test_show_clients_empty(self):
         self.database.show_clients = Mock(return_value=[])
-        assert_that(self.client.show_clients()).is_equal_to([])
+        assert_that(self.client.show_clients()).is_empty()
 
     def test_show_client_by_id(self):
         self.database.show_client_by_id = Mock(
@@ -103,7 +103,7 @@ class TestClient(unittest.TestCase):
 
     def test_show_clients_by_firstname_and_lastname_empty(self):
         self.database.show_clients_by_firstname_and_lastname = Mock(return_value=[])
-        assert_that(self.client.show_clients_by_firstname_and_lastname('abascasd')).is_equal_to([])
+        assert_that(self.client.show_clients_by_firstname_and_lastname('abascasd')).is_empty()
 
     def test_show_clients_by_firstname_and_lastname_too_many_args(self):
         mock_function = create_autospec(self.database.show_clients_by_firstname_and_lastname)
@@ -149,7 +149,7 @@ class TestClient(unittest.TestCase):
 
     def test_show_orders_by_client_id_empty(self):
         self.database.show_orders_by_client_id = Mock(return_value=[])
-        assert_that(self.client.show_orders_by_client_id(3)).is_equal_to([])
+        assert_that(self.client.show_orders_by_client_id(3)).is_empty()
 
     def test_show_orders_by_client_id_wrong_id(self):
         self.database.show_orders_by_client_id = Mock(side_effect=ValueError)

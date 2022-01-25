@@ -67,7 +67,7 @@ class TestItem(unittest.TestCase):
 
     def test_show_items_from_database_empty(self):
         self.database.show_items = Mock(return_value=[])
-        assert_that(self.item.show_items_from_database()).is_equal_to([])
+        assert_that(self.item.show_items_from_database()).is_empty()
 
     def test_show_item_by_id(self):
         self.database.show_item_by_id = Mock(return_value={'id': 1, 'name': 'Piłka', 'value': 35.99})
@@ -85,4 +85,4 @@ class TestItem(unittest.TestCase):
 
     def test_show_items_by_name_empty(self):
         self.database.show_items_by_name = Mock(return_value=[])
-        assert_that(self.item.show_items_by_name('Puma')).is_equal_to([])
+        assert_that(self.item.show_items_by_name('Puma')).is_empty()
