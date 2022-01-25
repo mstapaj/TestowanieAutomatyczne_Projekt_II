@@ -284,3 +284,6 @@ class TestParametrizedEditClientInDatabase(unittest.TestCase):
 
     def test_delete_order_from_client(self):
         assert_that(self.temp.delete_order_from_client).raises(ValueError).when_called_with(self.wrongId)
+
+    def test_show_orders_by_client_id(self):
+        assert_that(self.temp.show_orders_by_client_id).raises(ValueError).when_called_with(self.wrongId)
