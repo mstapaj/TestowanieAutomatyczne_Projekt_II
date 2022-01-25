@@ -1,6 +1,6 @@
 import unittest
 from assertpy import assert_that
-from unittest.mock import MagicMock, create_autospec
+from unittest.mock import MagicMock, create_autospec, Mock
 from src.order import Order
 from src.database import Database
 
@@ -76,3 +76,34 @@ class TestOrder(unittest.TestCase):
         self.database.delete_item_from_order = MagicMock(side_effect=[None, ValueError])
         self.order.delete_item_from_order(1)
         assert_that(self.order.delete_item_from_order).raises(ValueError).when_called_with(1)
+
+    def test_show_items_by_order_id(self):
+        self.database.show_items_by_order_id = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}])
+        assert_that(self.order.show_items_by_order_id(1)).is_equal_to(
+            [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}])
+
+    def test_show_items_by_order_id_many(self):
+        self.database.show_items_by_order_id = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 89.99},
+                          {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99},
+                          {'id': 3, 'name': 'Buty Nike', 'value': 269.99}])
+        assert_that(self.order.show_items_by_order_id(1)).is_equal_to(
+            [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99},
+             {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99},
+             {'id': 3, 'name': 'Buty Nike', 'value': 269.99}])
+
+    def test_show_items_by_order_id_many_length(self):
+        self.database.show_items_by_order_id = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 89.99},
+                          {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99},
+                          {'id': 3, 'name': 'Buty Nike', 'value': 269.99}])
+        assert_that(self.order.show_items_by_order_id(1)).is_length(3)
+
+    def test_show_items_by_order_id_empty(self):
+        self.database.show_items_by_order_id = Mock(return_value=[])
+        assert_that(self.order.show_items_by_order_id(3)).is_empty()
+
+    def test_show_items_by_order_id_wrong_id(self):
+        self.database.show_items_by_order_id = Mock(side_effect=ValueError)
+        assert_that(self.order.show_items_by_order_id).raises(ValueError).when_called_with(4)
