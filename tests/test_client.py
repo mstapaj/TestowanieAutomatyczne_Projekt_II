@@ -1,6 +1,6 @@
 import unittest
 from assertpy import assert_that
-from unittest.mock import Mock
+from unittest.mock import Mock, create_autospec
 from src.client import Client
 from src.database import Database
 
@@ -32,6 +32,16 @@ class TestClient(unittest.TestCase):
         assert_that(self.client.edit_client_in_database).raises(ValueError).when_called_with(1, 1, 'Ola', 'Kot',
                                                                                              'example@exaXXLmple.com')
 
+    def test_edit_client_in_database_too_many_args(self):
+        mock_function = create_autospec(self.database.edit_client)
+        assert_that(mock_function).raises(TypeError).when_called_with(1, 1, 1, 'Ola', 'Kot',
+                                                                      'example@exaXXLmple.com')
+
+    def test_edit_client_in_database_too_few_args(self):
+        mock_function = create_autospec(self.database.edit_client)
+        assert_that(mock_function).raises(TypeError).when_called_with(1, 'Ola', 'Kot',
+                                                                      'example@exaXXLmple.com')
+
     def test_delete_client_in_database(self):
         self.database.delete_client = Mock()
         self.client.delete_client_in_database(2)
@@ -41,6 +51,14 @@ class TestClient(unittest.TestCase):
         self.database.delete_client = Mock(side_effect=[None, ValueError])
         self.client.delete_client_in_database(2)
         assert_that(self.client.delete_client_in_database).raises(ValueError).when_called_with(2)
+
+    def test_delete_client_in_database_too_many_args(self):
+        mock_function = create_autospec(self.database.delete_client)
+        assert_that(mock_function).raises(TypeError).when_called_with(2, 2)
+
+    def test_delete_client_in_database_too_few_args(self):
+        mock_function = create_autospec(self.database.delete_client)
+        assert_that(mock_function).raises(TypeError).when_called_with()
 
     def test_show_clients(self):
         self.database.show_clients = Mock(
@@ -64,6 +82,14 @@ class TestClient(unittest.TestCase):
         self.database.show_client_by_id = Mock(side_effect=ValueError('Nie istnieje klient o takim id'))
         assert_that(self.client.show_client_by_id).raises(ValueError).when_called_with(5)
 
+    def test_show_client_by_id_too_many_args(self):
+        mock_function = create_autospec(self.database.show_client_by_id)
+        assert_that(mock_function).raises(TypeError).when_called_with(2, 2)
+
+    def test_show_client_by_id_too_few_args(self):
+        mock_function = create_autospec(self.database.show_client_by_id)
+        assert_that(mock_function).raises(TypeError).when_called_with()
+
     def test_show_clients_by_firstname_and_lastname(self):
         self.database.show_clients_by_firstname_and_lastname = Mock(
             return_value=[{'id': 1, "firstname": "Michał", "lastname": "Kowal", "email": 'example@example.com'},
@@ -75,6 +101,14 @@ class TestClient(unittest.TestCase):
     def test_show_clients_by_firstname_and_lastname_empty(self):
         self.database.show_clients_by_firstname_and_lastname = Mock(return_value=[])
         assert_that(self.client.show_clients_by_firstname_and_lastname('abascasd')).is_equal_to([])
+
+    def test_show_clients_by_firstname_and_lastname_too_many_args(self):
+        mock_function = create_autospec(self.database.show_clients_by_firstname_and_lastname)
+        assert_that(mock_function).raises(TypeError).when_called_with('abc', 2)
+
+    def test_show_clients_by_firstname_and_lastname_too_few_args(self):
+        mock_function = create_autospec(self.database.show_clients_by_firstname_and_lastname)
+        assert_that(mock_function).raises(TypeError).when_called_with()
 
     def test_add_order_to_client(self):
         self.database.add_order_to_client = Mock()
