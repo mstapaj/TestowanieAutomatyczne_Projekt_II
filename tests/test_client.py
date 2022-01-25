@@ -196,6 +196,8 @@ class TestClient(unittest.TestCase):
         mock = mock_open()
         with patch('builtins.open', mock):
             self.client.save_clients_to_file()
-        toWrite = {'id': self.client.id, 'firstname': self.client.firstname, 'lastname': self.client.lastname,
-                   'email': self.client.email}
-        mock.return_value.write.assert_called_with(json.dumps([toWrite]))
+        toWrite = []
+        for i in self.client.show_clients():
+            toWrite.append({'id': i['id'], 'firstname': i['firstname'], 'lastname': i['lastname'],
+                            'email': i['email']})
+        mock.return_value.write.assert_called_with(json.dumps(toWrite))

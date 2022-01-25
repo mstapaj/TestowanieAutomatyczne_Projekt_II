@@ -1,6 +1,7 @@
 import unittest
+import json
 from assertpy import assert_that
-from unittest.mock import Mock, create_autospec
+from unittest.mock import Mock, create_autospec, patch, mock_open
 from src.item import Item
 from src.database import Database
 
@@ -104,3 +105,21 @@ class TestItem(unittest.TestCase):
     def test_show_items_by_name_empty(self):
         self.database.show_items_by_name = Mock(return_value=[])
         assert_that(self.item.show_items_by_name('Puma')).is_empty()
+
+    def test_save_items_to_file(self):
+        mock = mock_open()
+        with patch('builtins.open', mock):
+            self.item.save_items_to_file()
+        mock.assert_called_with('data/items.json', 'w')
+
+    def test_save_clients_to_file_write(self):
+        self.database.show_items = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 35.99},
+                          {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
+        mock = mock_open()
+        with patch('builtins.open', mock):
+            self.item.save_clients_to_file()
+        toWrite = []
+        for i in self.item.show_items_from_database():
+            toWrite.append({'id': i['id'], 'name': i['name'], 'value': i['value']})
+        mock.return_value.write.assert_called_with(json.dumps(toWrite))
