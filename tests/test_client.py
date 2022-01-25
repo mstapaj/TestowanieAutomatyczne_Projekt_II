@@ -1,6 +1,7 @@
+import json
 import unittest
 from assertpy import assert_that
-from unittest.mock import Mock, create_autospec
+from unittest.mock import Mock, create_autospec, mock_open, patch
 from src.client import Client
 from src.database import Database
 
@@ -182,3 +183,17 @@ class TestClient(unittest.TestCase):
     def test_show_orders_by_client_id_wrong_id(self):
         self.database.show_orders_by_client_id = Mock(side_effect=ValueError)
         assert_that(self.client.show_orders_by_client_id).raises(ValueError).when_called_with(4)
+
+    def test_save_clients_to_file(self):
+        mock = mock_open()
+        with patch('builtins.open', mock):
+            self.client.save_clients_to_file()
+        mock.assert_called_with('data/clients.txt', 'w')
+
+    def test_save_clients_to_file_write(self):
+        mock = mock_open()
+        with patch('builtins.open', mock):
+            self.client.save_clients_to_file()
+        toWrite = {'id': self.client.id, 'firstname': self.client.firstname, 'lastname': self.client.lastname,
+                   'email': self.client.email}
+        mock.return_value.write.assert_called_with(json.dumps([toWrite]))
