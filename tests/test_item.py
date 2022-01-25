@@ -79,6 +79,26 @@ class TestItem(unittest.TestCase):
         self.database.show_item_by_id = Mock(return_value={'id': 1, 'name': 'Piłka', 'value': 35.99})
         assert_that(self.item.show_item_by_id(1)).is_equal_to({'id': 1, 'name': 'Piłka', 'value': 35.99})
 
+    def test_show_item_by_id_fake(self):
+        def fakereturn(input_id):
+            if input_id == 1:
+                return {'id': 1, 'name': 'Piłka', 'value': 35.99}
+            else:
+                raise ValueError
+
+        self.database.show_item_by_id = Mock(side_effect=fakereturn)
+        assert_that(self.item.show_item_by_id(1)).is_equal_to({'id': 1, 'name': 'Piłka', 'value': 35.99})
+
+    def test_show_item_by_id_fake_error(self):
+        def fakereturn(input_id):
+            if input_id == 1:
+                return {'id': 1, 'name': 'Piłka', 'value': 35.99}
+            else:
+                raise ValueError
+
+        self.database.show_item_by_id = Mock(side_effect=fakereturn)
+        assert_that(self.item.show_item_by_id).raises(ValueError).when_called_with(2)
+
     def test_show_item_by_id_contains(self):
         self.database.show_item_by_id = Mock(return_value={'id': 1, 'name': 'Piłka', 'value': 35.99})
         assert_that(self.item.show_item_by_id(1)).contains('value')
