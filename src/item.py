@@ -1,5 +1,5 @@
 from src.database import Database
-
+import json
 
 class Item:
     def __init__(self, id, name, value, database=None):
@@ -54,3 +54,8 @@ class Item:
         if not isinstance(name, str):
             raise ValueError('Nazwa musi być typu string')
         return self.database.show_items_by_name(name)
+
+    def save_items_to_file(self):
+        allItems = self.database.show_items()
+        with open('data/items.json', 'w') as file:
+            file.write(json.dumps(allItems))

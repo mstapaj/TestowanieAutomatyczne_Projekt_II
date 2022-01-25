@@ -118,7 +118,7 @@ class TestItem(unittest.TestCase):
                           {'id': 2, 'name': 'Piłka Adidas', 'value': 45.99}])
         mock = mock_open()
         with patch('builtins.open', mock):
-            self.item.save_clients_to_file()
+            self.item.save_items_to_file()
         toWrite = []
         for i in self.item.show_items_from_database():
             toWrite.append({'id': i['id'], 'name': i['name'], 'value': i['value']})
