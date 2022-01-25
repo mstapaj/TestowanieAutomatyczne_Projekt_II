@@ -188,9 +188,11 @@ class TestClient(unittest.TestCase):
         mock = mock_open()
         with patch('builtins.open', mock):
             self.client.save_clients_to_file()
-        mock.assert_called_with('data/clients.txt', 'w')
+        mock.assert_called_with('data/clients.json', 'w')
 
     def test_save_clients_to_file_write(self):
+        self.database.show_clients = Mock(
+            return_value=[{"id": 1, "firstname": "Jan", "lastname": "Kowalski", "email": "example@example.com"}])
         mock = mock_open()
         with patch('builtins.open', mock):
             self.client.save_clients_to_file()

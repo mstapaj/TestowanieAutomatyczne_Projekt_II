@@ -1,3 +1,5 @@
+import json
+
 from src.database import Database
 from src.order import Order
 
@@ -86,3 +88,8 @@ class Client:
 
     def show_orders_by_client_id(self, client_id):
         return self.database.show_orders_by_client_id(client_id)
+
+    def save_clients_to_file(self):
+        allClients = self.database.show_clients()
+        with open('data/clients.json', 'w') as file:
+            file.write(json.dumps(allClients))
