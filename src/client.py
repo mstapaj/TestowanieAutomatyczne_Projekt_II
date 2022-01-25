@@ -87,6 +87,8 @@ class Client:
         return self.database.delete_order_from_client(self.id, order_id)
 
     def show_orders_by_client_id(self, client_id):
+        if not isinstance(client_id, int) or client_id < 0 or str(client_id) == 'True' or str(client_id) == 'False':
+            raise ValueError('Id klienta musi być dodatnią liczbą całkowitą')
         return self.database.show_orders_by_client_id(client_id)
 
     def save_clients_to_file(self):
