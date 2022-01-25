@@ -92,6 +92,11 @@ class TestClient(unittest.TestCase):
             return_value={'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'})
         assert_that(self.client.show_client_by_id(1)).contains('lastname')
 
+    def test_show_client_by_id_type_dict(self):
+        self.database.show_client_by_id = Mock(
+            return_value={'id': 1, "firstname": "Ola", "lastname": "Kot", "email": 'example@example.com'})
+        assert_that(self.client.show_client_by_id(1)).is_type_of(dict)
+
     def test_show_client_by_id_no_client(self):
         self.database.show_client_by_id = Mock(side_effect=ValueError('Nie istnieje klient o takim id'))
         assert_that(self.client.show_client_by_id).raises(ValueError).when_called_with(5)

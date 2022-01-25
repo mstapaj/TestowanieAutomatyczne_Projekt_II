@@ -82,6 +82,10 @@ class TestItem(unittest.TestCase):
         self.database.show_item_by_id = Mock(return_value={'id': 1, 'name': 'Piłka', 'value': 35.99})
         assert_that(self.item.show_item_by_id(1)).contains('value')
 
+    def test_show_item_by_id_type_dict(self):
+        self.database.show_item_by_id = Mock(return_value={'id': 1, 'name': 'Piłka', 'value': 35.99})
+        assert_that(self.item.show_item_by_id(1)).is_type_of(dict)
+
     def test_show_item_by_id_no_item(self):
         self.database.show_item_by_id = Mock(side_effect=ValueError('Nie istnieje przedmiot o takim id'))
         assert_that(self.item.show_item_by_id).raises(ValueError).when_called_with(5)
