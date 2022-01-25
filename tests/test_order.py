@@ -11,6 +11,9 @@ class TestOrder(unittest.TestCase):
         self.database = Database()
         self.order = Order(1, 1, self.database)
 
+    def test_order_not_none(self):
+        assert_that(self.order).is_not_none()
+
     def test_add_order_to_database(self):
         self.database.add_order = MagicMock()
         self.order.add_order_to_database()

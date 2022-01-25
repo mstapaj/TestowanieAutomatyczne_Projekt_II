@@ -11,6 +11,9 @@ class TestItem(unittest.TestCase):
         self.database = Database()
         self.item = Item(1, 'Piłka', 12.5, self.database)
 
+    def test_item_not_none(self):
+        assert_that(self.item).is_not_none()
+
     def test_add_item_to_database(self):
         self.database.add_item = Mock(return_value='Dodano przedmiot do bazy danych')
         assert_that(self.item.add_item_to_database()).is_equal_to('Dodano przedmiot do bazy danych')

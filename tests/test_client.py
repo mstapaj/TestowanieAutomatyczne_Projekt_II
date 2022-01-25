@@ -11,6 +11,9 @@ class TestClient(unittest.TestCase):
         self.database = Database()
         self.client = Client(1, 'Jan', 'Kowalski', 'example@example.com', self.database)
 
+    def test_client_not_none(self):
+        assert_that(self.client).is_not_none()
+
     def test_add_client_to_database(self):
         self.database.add_client = Mock()
         self.client.add_client_to_database()
