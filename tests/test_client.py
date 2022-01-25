@@ -95,3 +95,26 @@ class TestClient(unittest.TestCase):
         self.database.delete_order_from_client = Mock(side_effect=[None, ValueError])
         self.client.delete_order_from_client(1)
         assert_that(self.client.delete_order_from_client).raises(ValueError).when_called_with(1)
+
+    def test_show_orders_by_client_id(self):
+        self.database.show_orders_by_client_id = Mock(
+            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}])
+        assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(
+            [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
+                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+
+    def test_show_orders_by_client_id_many(self):
+        self.database.show_orders_by_client_id = Mock(
+            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
+                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+        assert_that(self.client.show_orders_by_client_id(2)).is_equal_to(
+            [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
+                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+
+    def test_show_orders_by_client_id_empty(self):
+        self.database.show_orders_by_client_id = Mock(return_value=[])
+        assert_that(self.client.show_orders_by_client_id(3)).is_equal_to([])
+
+    def test_show_orders_by_client_id_wrong_id(self):
+        self.database.show_orders_by_client_id = Mock(side_effect=ValueError)
+        assert_that(self.client.show_orders_by_client_id).raises(ValueError).when_called_with(4)
