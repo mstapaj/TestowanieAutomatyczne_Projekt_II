@@ -51,3 +51,6 @@ class Order:
             if i.id != item_id:
                 newItems.append(i)
         return self.database.delete_item_from_order(self.id_client, item_id)
+
+    def show_items_by_order_id(self, order_id):
+        return self.database.show_items_by_order_id(order_id)
