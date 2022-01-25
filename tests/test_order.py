@@ -1,6 +1,6 @@
 import unittest
 from assertpy import assert_that
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, create_autospec
 from src.order import Order
 from src.database import Database
 
@@ -31,6 +31,14 @@ class TestOrder(unittest.TestCase):
         self.order.edit_order_in_database(1, 1, 3)
         assert_that(self.order.edit_order_in_database).raises(ValueError).when_called_with(1, 1, 3)
 
+    def test_edit_order_in_database_too_many_args(self):
+        mock_function = create_autospec(self.database.edit_order)
+        assert_that(mock_function).raises(TypeError).when_called_with(1, 1, 1, 3)
+
+    def test_edit_order_in_database_too_few_args(self):
+        mock_function = create_autospec(self.database.edit_order)
+        assert_that(mock_function).raises(TypeError).when_called_with(1)
+
     def test_delete_order_from_database(self):
         self.database.delete_order = MagicMock()
         self.order.delete_order_from_database(1)
@@ -40,6 +48,14 @@ class TestOrder(unittest.TestCase):
         self.database.delete_order = MagicMock(side_effect=[None, ValueError])
         self.order.delete_order_from_database(1)
         assert_that(self.order.delete_order_from_database).raises(ValueError).when_called_with(1)
+
+    def test_delete_order_from_database_too_many_args(self):
+        mock_function = create_autospec(self.database.delete_order)
+        assert_that(mock_function).raises(TypeError).when_called_with(1, 1, 1, 3)
+
+    def test_delete_order_from_database_too_few_args(self):
+        mock_function = create_autospec(self.database.delete_order)
+        assert_that(mock_function).raises(TypeError).when_called_with()
 
     def test_add_item_to_order(self):
         self.database.add_item_to_order = MagicMock()
