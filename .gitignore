@@ -130,3 +130,6 @@ dmypy.json
 
 # Idea directory
 .idea/
+
+# Scanner directory
+.scannerwork/
