@@ -1,9 +1,19 @@
 import json
 import unittest
-from assertpy import assert_that
+from assertpy import assert_that, add_extension
 from unittest.mock import Mock, create_autospec, mock_open, patch
 from src.client import Client
 from src.database import Database
+
+
+def is_length_of_order_items_below_or_equal_2(self):
+    for i in self.val:
+        if len(i['items']) > 2:
+            return self.error('Ilość produktów w we wszystkich zamówieniach nie jest równa lub poniżej 2!')
+    return self
+
+
+add_extension(is_length_of_order_items_below_or_equal_2)
 
 
 class TestClient(unittest.TestCase):
@@ -169,6 +179,30 @@ class TestClient(unittest.TestCase):
         assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(
             [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
                 {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+
+    def test_show_orders_by_client_id_custom_matcher(self):
+        self.database.show_orders_by_client_id = Mock(
+            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
+                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+        assert_that(self.client.show_orders_by_client_id(1)).is_length_of_order_items_below_or_equal_2()
+
+    def test_show_orders_by_client_id_custom_matcher_less_orders(self):
+        self.database.show_orders_by_client_id = Mock(
+            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}])
+        assert_that(self.client.show_orders_by_client_id(1)).is_length_of_order_items_below_or_equal_2()
+
+    def test_show_orders_by_client_id_custom_matcher_empty(self):
+        self.database.show_orders_by_client_id = Mock(
+            return_value=[])
+        assert_that(self.client.show_orders_by_client_id(1)).is_length_of_order_items_below_or_equal_2()
+
+    # Test matchera, który nie przechodzi z powodu zbyt dużej ilości produktów w zamówieniu
+    # def test_show_orders_by_client_id_custom_matcher_error(self):
+    #     self.database.show_orders_by_client_id = Mock(
+    #         return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
+    #             {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99},
+    #             {'id': 4, 'name': 'Buty Adidas', 'value': 29.99}]}])
+    #     assert_that(self.client.show_orders_by_client_id(1)).is_length_of_order_items_below_or_equal_2()
 
     def test_show_orders_by_client_id_many_length(self):
         self.database.show_orders_by_client_id = Mock(

@@ -1,8 +1,18 @@
 import unittest
-from assertpy import assert_that
+from assertpy import assert_that, add_extension
 from unittest.mock import MagicMock, create_autospec, Mock
 from src.order import Order
 from src.database import Database
+
+
+def is_each_result_has_keys_id_name_value(self):
+    for i in self.val:
+        if 'id' not in i or 'name' not in i or 'value' not in i:
+            return self.error('Przedmioty w zamówieniu nie mają wszystkich wartości')
+    return self
+
+
+add_extension(is_each_result_has_keys_id_name_value)
 
 
 class TestOrder(unittest.TestCase):
@@ -92,6 +102,21 @@ class TestOrder(unittest.TestCase):
             [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99},
              {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99},
              {'id': 3, 'name': 'Buty Nike', 'value': 269.99}])
+
+    def test_show_items_by_order_id_many_custom_matcher(self):
+        self.database.show_items_by_order_id = Mock(
+            return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 89.99},
+                          {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99},
+                          {'id': 3, 'name': 'Buty Nike', 'value': 269.99}])
+        assert_that(self.order.show_items_by_order_id(1)).is_each_result_has_keys_id_name_value()
+
+    # Test nie przechodzi, ponieważ w przedmiotach nie ma wszystkich wymaganych wartości
+    # def test_show_items_by_order_id_many_custom_matcher_error(self):
+    #     self.database.show_items_by_order_id = Mock(
+    #         return_value=[{'id': 1, 'name': 'Piłka Nike', 'value': 89.99},
+    #                       {'id': 2, 'name': 'Piłka Adidas'},
+    #                       {'name': 'Buty Nike', 'value': 269.99}])
+    #     assert_that(self.order.show_items_by_order_id(1)).is_each_result_has_keys_id_name_value()
 
     def test_show_items_by_order_id_many_length(self):
         self.database.show_items_by_order_id = Mock(
