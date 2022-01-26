@@ -1,7 +1,7 @@
 import unittest
 from assertpy import assert_that
 from src.client import Client
-from parameterized import *
+from parameterized import parameterized_class
 
 
 @parameterized_class(('wrongId', 'wrongFirstname', 'wrongLastname', 'wrongEmail'), [

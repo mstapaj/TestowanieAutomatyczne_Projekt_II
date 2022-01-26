@@ -1,7 +1,7 @@
 import unittest
 from assertpy import assert_that
 from src.item import Item
-from parameterized import *
+from parameterized import parameterized_class
 
 
 @parameterized_class(('wrongId', 'wrongName', 'wrongValue'), [

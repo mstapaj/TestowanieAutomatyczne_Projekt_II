@@ -1,7 +1,7 @@
 import unittest
 from assertpy import assert_that
 from src.order import Order
-from parameterized import *
+from parameterized import parameterized_class
 
 
 @parameterized_class(('wrongId', 'wrongIdClient'), [
