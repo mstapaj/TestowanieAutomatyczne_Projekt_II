@@ -173,12 +173,11 @@ class TestClient(unittest.TestCase):
             [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}])
 
     def test_show_orders_by_client_id_many(self):
+        orders = [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 189.99}]}, {'id': 2, 'items': [
+            {'id': 2, 'name': 'Piłka Adidas', 'value': 89.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}]
         self.database.show_orders_by_client_id = Mock(
-            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
-                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
-        assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(
-            [{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
-                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+            return_value=orders)
+        assert_that(self.client.show_orders_by_client_id(1)).is_equal_to(orders)
 
     def test_show_orders_by_client_id_custom_matcher(self):
         self.database.show_orders_by_client_id = Mock(
@@ -206,8 +205,8 @@ class TestClient(unittest.TestCase):
 
     def test_show_orders_by_client_id_many_length(self):
         self.database.show_orders_by_client_id = Mock(
-            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 89.99}]}, {'id': 2, 'items': [
-                {'id': 2, 'name': 'Piłka Adidas', 'value': 69.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
+            return_value=[{'id': 1, 'items': [{'id': 1, 'name': 'Piłka Nike', 'value': 189.99}]}, {'id': 2, 'items': [
+                {'id': 2, 'name': 'Piłka Adidas', 'value': 169.99}, {'id': 3, 'name': 'Buty Nike', 'value': 269.99}]}])
         assert_that(self.client.show_orders_by_client_id(1)).is_length(2)
 
     def test_show_orders_by_client_id_empty(self):
@@ -230,8 +229,8 @@ class TestClient(unittest.TestCase):
         mock = mock_open()
         with patch('builtins.open', mock):
             self.client.save_clients_to_file()
-        toWrite = []
+        towrite = []
         for i in self.client.show_clients():
-            toWrite.append({'id': i['id'], 'firstname': i['firstname'], 'lastname': i['lastname'],
+            towrite.append({'id': i['id'], 'firstname': i['firstname'], 'lastname': i['lastname'],
                             'email': i['email']})
-        mock.return_value.write.assert_called_with(json.dumps(toWrite))
+        mock.return_value.write.assert_called_with(json.dumps(towrite))

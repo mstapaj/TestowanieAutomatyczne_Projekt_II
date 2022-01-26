@@ -134,7 +134,7 @@ class TestItem(unittest.TestCase):
         mock = mock_open()
         with patch('builtins.open', mock):
             self.item.save_items_to_file()
-        toWrite = []
+        towrite = []
         for i in self.item.show_items_from_database():
-            toWrite.append({'id': i['id'], 'name': i['name'], 'value': i['value']})
-        mock.return_value.write.assert_called_with(json.dumps(toWrite))
+            towrite.append({'id': i['id'], 'name': i['name'], 'value': i['value']})
+        mock.return_value.write.assert_called_with(json.dumps(towrite))
