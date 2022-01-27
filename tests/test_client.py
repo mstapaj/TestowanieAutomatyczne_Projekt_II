@@ -20,7 +20,7 @@ class TestClient(unittest.TestCase):
 
     def setUp(self):
         self.database = Database()
-        self.client = Client(1, 'Jan', 'Kowalski', 'example@example.com', self.database)
+        self.client = Client(1, Mock(spec=str), Mock(spec=str), 'example@example.com', self.database)
 
     def test_client_not_none(self):
         assert_that(self.client).is_not_none()
