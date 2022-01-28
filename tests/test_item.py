@@ -7,7 +7,7 @@ from src.database import Database
 
 
 def fakereturn(input_id):
-    if input_id == 1:
+    if input_id == 1 and str(input_id) != 'True':
         return {'id': 1, 'name': 'Piłka', 'value': 35.99}
     else:
         raise ValueError
