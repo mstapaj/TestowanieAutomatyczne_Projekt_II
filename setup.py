@@ -22,5 +22,6 @@ setup(
                       'nose2',
                       'parametrized',
                       'setuptools',
-                      'pytest'],
+                      'pytest',
+                      'tox'],
 )
